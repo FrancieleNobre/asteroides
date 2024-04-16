@@ -3,7 +3,7 @@ from pygame import Vector2
 
 class Entity():
 
-    def __int__(self, galaxy, name, color):
+    def __init__(self, galaxy, name, color):
         self.galaxy = galaxy
         self.name = name
         self.color = color

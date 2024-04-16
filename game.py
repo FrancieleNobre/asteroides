@@ -5,8 +5,8 @@ from galaxy import Galaxy
 from utils import *
 
 COLOR_DEPTH = 8
-FPS = 60
-NUMBER_ASTEROIDS = 7
+FPS = 50
+NUMBER_ASTEROIDS = 10
 
 
 class Game():
