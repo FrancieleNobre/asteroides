@@ -1,3 +1,4 @@
+
 from utils import *
 
 class Galaxy():
@@ -6,19 +7,40 @@ class Galaxy():
         self.entities = {}
         self.entity_id = 0
 
+    def get_entity_by_name(self, entity_name):
+        for entity in self.entities.values():
+            if entity.name == entity_name:
+                return entity
+        return None
+    def get_entities_by_name(self, entity_name):
+        entities = []
+        for entity in self.entities.values():
+            if entity.name == entity_name:
+                entities.append(entity)
+        return entities
 
     def add_entity(self, entity):
         self.entities[self.entity_id] = entity
         entity.id = self.entity_id
         self.entity_id += 1
 
+    def remove_entity(self, entity):
+        del self.entities[entity.id]
+
     def update(self, time_passed, event_list):
         time_passed_seconds = time_passed / 1000.0
-        for entity in self.entities.values():
+        for entity in list(self.entities.values()):
             entity.update(time_passed_seconds, event_list)
             if not self.in_screen_space(entity.position):
-               self.wrap_coordinates(entity.position)
+                if entity.name == "asteroid" or entity.name == "ship":
+                    self.wrap_coordinates(entity.position)
+                elif entity.name == "blast":
+                    self.dead = True
 
+    def cleanup(self):
+        for entity in list(self.entities.values()):
+            if entity.dead == True:
+                self.remove_entity(entity)
 
     def render(self, surface):
         surface.fill(BLACK)
