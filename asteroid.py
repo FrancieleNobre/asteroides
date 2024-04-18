@@ -5,7 +5,7 @@ from utils import *
 
 
 WIDTH = 3
-SCALE_FACTOR = 3
+SCALE_FACTOR = 2
 SPEED = 150.0
 ANGULAR_SPEED = 90.0
 
