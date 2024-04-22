@@ -7,6 +7,7 @@ from pygame.math import Vector2
 from blast import Blast
 from utils import *
 
+
 WIDTH = 3
 SCALE_FACTOR = 5.0
 ACCELERATION = 250.0
@@ -24,7 +25,7 @@ THRUST_WIREFRAME = [
 class Ship(WEntity):
 
     def __init__(self, galaxy):
-        super().__init__(galaxy, "ship", GREEN, SHIP_WIREFRAME, WIDTH)
+        super().__init__(galaxy, "ship", nav_color(1), SHIP_WIREFRAME, WIDTH)
 
         self.position = Vector2(self.galaxy.rect.width / 2,
                                 self.galaxy.rect.height / 2)

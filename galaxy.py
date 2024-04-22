@@ -24,6 +24,7 @@ class Galaxy():
         entity.id = self.entity_id
         self.entity_id += 1
 
+
     def remove_entity(self, entity):
         del self.entities[entity.id]
 
@@ -32,7 +33,7 @@ class Galaxy():
         for entity in list(self.entities.values()):
             entity.update(time_passed_seconds, event_list)
             if not self.in_screen_space(entity.position):
-                if entity.name == "asteroid" or entity.name == "ship":
+                if entity.name == "asteroid" or entity.name == "ship" or entity.name == "comet":
                     self.wrap_coordinates(entity.position)
                 elif entity.name == "blast":
                     self.dead = True
@@ -72,4 +73,3 @@ class Galaxy():
 
         if position.y >= height:
             position.y -= height
-

@@ -1,13 +1,19 @@
 import pygame
 
-BLACK = (0,0,0)
-BLUE = (0,0,255)
-GREEN = (0,255,0)
-CYAN = (0,255,255)
-RED = (255,0,0)
-MAGENTA = (255,0,255)
-YELLOW = (255,255,0)
-WHITE = (255,255,255)
+BLACK = (0, 0, 0)
+BLUE = (0, 0, 255)
+GREEN = (0, 255, 0)
+CYAN = (0, 255, 255)
+RED = (255, 0, 0)
+MAGENTA = (255, 0, 255)
+YELLOW = (255, 255, 0)
+WHITE = (255, 255, 255)
+
+def nav_color(level):
+    if level == 1:
+        return GREEN
+
+
 
 NEW_GAME = pygame.USEREVENT + 1
 START_GAME = pygame.USEREVENT + 2

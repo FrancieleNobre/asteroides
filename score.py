@@ -8,7 +8,7 @@ from utils import *
 
 INITIAL_NUM_LIVES = 3
 MAX_LIVES = 5
-
+LEVEL = 1
 
 class Score(Entity):
     def __init__(self, galaxy):
@@ -19,6 +19,7 @@ class Score(Entity):
         self.ship_shielded = True
         self.game_difficulty = 1.0
         self.game_status = GAME_NOT_RUNNING
+        self.level = LEVEL
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
@@ -69,6 +70,9 @@ class Score(Entity):
 
     def increase_game_difficulty_by(self, multiplier):
         self.game_difficulty *= multiplier
+
+    def level_up(self, cont):
+        self.level += cont
 
     def run_game(self):
         self.game_status = GAME_RUNNING

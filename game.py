@@ -1,16 +1,18 @@
 import pygame
 from pygame.locals import *
 from asteroid import Asteroid
+from comet import Comet
 from countdown import CountDown
 from fps import Fps
 from galaxy import Galaxy
-from ship import Ship
-from score import Score
+from ship import *
+from score import *
 from utils import *
 
 COLOR_DEPTH = 8
 FPS = 60
-NUMBER_ASTEROIDS = 6
+NUMBER_ASTEROIDS = 8
+NUMBER_COMET = 1
 
 
 class Game():
@@ -19,12 +21,14 @@ class Game():
         self.screen = pygame.display.set_mode(
             flags=pygame.FULLSCREEN, depth=COLOR_DEPTH)
         self.screen_rect = self.screen.get_rect()
-        pygame.display.set_caption("Asteróides, O jogo")
+        pygame.display.set_caption("Asteróides")
         self.clock = pygame.time.Clock()
         pygame.event.post(pygame.event.Event(NEW_GAME))
 
+
     def new_game(self):
         self.galaxy = Galaxy(self.screen_rect)
+        self.asteroids = []
         self.galaxy.add_entity(Ship(self.galaxy))
         self.fps = Fps(self.galaxy)
         self.galaxy.add_entity(self.fps)
@@ -48,8 +52,15 @@ class Game():
                     self.new_game()
 
             if len(self.galaxy.get_entities_by_name("asteroid")) == 0:
+                self.score.level_up(+1)
                 self.score.increase_game_difficulty_by(1.11)
                 self.score.update_lives(+1)
+                self.galaxy.get_entity_by_name("score").update_ship_shielded(True)
+                pygame.time.set_timer(UNSHIELD_EVENT, 2500, 1)
+                self.galaxy.get_entity_by_name("score").update_score(+500 * self.score.num_lives)
+                if self.galaxy.get_entity_by_name("score").score == 50000:
+                    for i in range(NUMBER_COMET):
+                        self.galaxy.add_entity(Comet(self.galaxy))
                 for i in range(NUMBER_ASTEROIDS):
                     self.galaxy.add_entity(Asteroid(self.galaxy))
 
